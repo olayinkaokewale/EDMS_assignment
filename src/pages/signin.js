@@ -4,9 +4,16 @@ import { bgColor, textColor } from '../rules/theme';
 import { Col, Row, Image, Div, Button, Text } from 'atomize/dist';
 import Assets from '../assets/assets';
 import InputField from '../components/input-field';
+import Validator from '../utils/validator';
 
 export default class SignIn extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
 
     render() {
         return (
@@ -23,7 +30,13 @@ export default class SignIn extends Component {
                 <Col d="flex" bg="blue100" minH={{ xs: 'auto', md: '100vh' }} justify="center" align="center">
                 <Div bg="white" m="2rem" p="2rem" w={{md:'70%', xl:'60%', xs:'80%'}}>
                     <Text m={{b:"1rem"}} textSize="body" textColor={textColor.medium} textWeight="600">Log In</Text>
-                    <InputField placeholder="Email Address" />
+                    <InputField placeholder="Email Address" {...this.state.emailAvailable} onBlur={() => {
+                        this.validateEmail();
+                    }} onFocus={() => {
+                        this.setState({emailAvailable: {}})
+                    }} onChange={e => {
+                        this.setState({email: e.target.value})
+                    }} />
                     <InputField placeholder="Password" password />
                     <Text m={{y:".5rem"}} tag="p" textSize="caption" textColor={textColor.light} textAlign="center">Forgot Password?</Text>
                     
@@ -36,5 +49,16 @@ export default class SignIn extends Component {
                 </Col>
             </Row>
         );
+    }
+
+    validateEmail = () => {
+        const { email } = this.state;
+        if (!Validator.isValidEmail(email)) {
+            this.setState({
+                emailAvailable: {
+                    errorMsg: "Invalid email address"
+                }
+            })
+        }
     }
 }

@@ -9,7 +9,7 @@ import Theme from './rules/theme';
 import { Provider as StyletronProvider, DebugEngine } from "styletron-react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Home from './pages/home';
+// import Home from './pages/home';
 import SignUp from './pages/signup';
 import SignIn from './pages/signin';
 
@@ -25,8 +25,8 @@ function App() {
       <ThemeProvider theme={Theme}>
         <StyleReset />
           <Router>
-            <Route path="/" exact component={Home} />
-            <Route path="/signup" component={SignUp} />
+            {/* <Route path="/" exact component={Home} /> */}
+            <Route path="/" exact component={SignUp} />
             <Route path="/signin" component={SignIn} />
           </Router>
       </ThemeProvider>
