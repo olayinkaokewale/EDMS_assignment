@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { 
+  ThemeProvider, StyleReset
+} from 'atomize'
+import './App.css';
+import Theme from './rules/theme';
+
+import { Provider as StyletronProvider, DebugEngine } from "styletron-react";
+import { Client as Styletron } from "styletron-engine-atomic";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './pages/home';
+import SignUp from './pages/signup';
+import SignIn from './pages/signin';
+
+const debug = process.env.NODE_ENV === "production" ? void 0 : new DebugEngine();
+
+// 1. Create a client engine instance
+const engine = new Styletron();
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyletronProvider value={engine} debug={debug} debugAfterHydration>
+      <ThemeProvider theme={Theme}>
+        <StyleReset />
+          <Router>
+            <Route path="/" exact component={Home} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
+          </Router>
+      </ThemeProvider>
+    </StyletronProvider>
   );
 }
 
