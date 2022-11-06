@@ -13,7 +13,7 @@
     "styletron-react": "^5.2.2"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
+    "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6"
   },
